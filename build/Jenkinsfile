@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo '===== docker build ====='
                 sh """
-                    docker build -f build/Dockerfile -t $REGISTRY/kacker/myserver:\${version}.\${branch}
+                    docker build -f build/Dockerfile -t $REGISTRY/kacker/myserver:\${version}.\${branch} .
                 """
             }
         }
