@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    environment {
+        // 阿里云仓库
+        REGISTRY = "registry.cn-hangzhou.aliyuncs.com"
+    }
+    stages {
+        stage('docker login') {
+            steps {
+                echo '===== docker login ====='
+                sh "docker login --username=2941609644@qq.com --password=Wasd4044 $REGISTRY"
+            }
+        }
+        stage('docker build') {
+            steps {
+                echo '===== docker build ====='
+                sh """
+                    docker build -f build/Dockerfile -t $REGISTRY/kacker/myserver:\${version}.\${branch}
+                """
+            }
+        }
+        stage('docker push') {
+            steps {
+                echo '===== docker push ====='
+                sh """
+                    docker push $REGISTRY/kacker/myserver:\${version}.\${branch}
+                """
+            }
+        }
+    }
+}
